@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{{ article.title }}</h1>
+    <div>{{ article.text }}</div>
+    <p>views: {{ article.views }}</p>
+    <p>created at: {{ article.created_at }}</p>
+    <p>updated at: {{ article.updated_at }}</p>
+    <button><a href="{% url 'article-edit' article.id %}">Edit</a></button>
+{% endblock %}

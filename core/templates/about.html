@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    О сайте
+{% endblock %}
+
+{% block extra-script %}
+    <script src="{% static 'myscript.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <h2>О нас</h2>
+    {% block text %}
+    <div>
+        На Хабре мы предоставляем новейшую информацию связанную с миром IT.
+    </div>
+    {% endblock %}
+
+    <button>Перекрасить</button>
+{% endblock %}
