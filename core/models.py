@@ -30,6 +30,10 @@ class Article(models.Model):
     )
     updated_at = models.DateTimeField(auto_now=True)
 
+    is_active = models.BooleanField(default=True)
+
+    picture = models.ImageField(upload_to="articles_image", null=True, blank=True, verbose_name="Picture name")
+
 
 
     def __str__(self):

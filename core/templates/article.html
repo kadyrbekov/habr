@@ -6,5 +6,18 @@
     <p>views: {{ article.views }}</p>
     <p>created at: {{ article.created_at }}</p>
     <p>updated at: {{ article.updated_at }}</p>
+    <p>
+
+        Author:
+        <ul>
+            <li>Pseudonym - {{ article.author.nickname }}</li>
+            <li>Account Name - {{ article.author.user.username }}</li>
+        </ul>
+    </p>
+
+
+
     <button><a href="{% url 'article-edit' article.id %}">Edit</a></button>
+    <br>
+    <button><a href="{% url 'article-delete' article.id %}">Delete</a></button> 
 {% endblock %}

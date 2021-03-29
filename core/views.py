@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse, redirect
 from .models import Article, Author
+from django.db.models import Q
 # Create your views here.
 
 def articles(request):
@@ -57,5 +58,29 @@ def add_article(request):
         new_article = Article()
         new_article.title = title
         new_article.text = text
+
+        user = request.user
+        if not Author.objects.filter(user=user).exists():
+            author = Author(user=user, nickname=user.username)
+            author.save()
+        
+        new_article.author = author
+        
+
         new_article.save()
         return redirect(article, new_article.pk)
+
+
+def search(request):
+    word = request.GET.get("word")
+    articles = Article.objects.filter(Q(title__icontains=word) | Q(text__icontains=word)) #LIKE|  is_active=True
+
+    return render(request, "articles.html", {"articles":articles})
+
+
+
+def delete_article(request, id):
+    myarticle = Article.objects.get(pk=id)
+    myarticle.delete()
+    return HttpResponse("is deleted")
+
