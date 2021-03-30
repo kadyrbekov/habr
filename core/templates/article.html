@@ -15,7 +15,9 @@
         </ul>
     </p>
 
-
+    {% if article.picture %}
+    <img src="{{ article.picture.url }}" width="400">
+    {% endif %}
 
     <button><a href="{% url 'article-edit' article.id %}">Edit</a></button>
     <br>
