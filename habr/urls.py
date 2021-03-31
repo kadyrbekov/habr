@@ -24,6 +24,7 @@ urlpatterns = [
     path("", articles, name = "articles"),
     path("article/<int:id>/", article, name = "article"),
     path("authors/", authors, name = "authors"),
+    path("author/<int:pk>", author_page, name="author"),
     path("about/", about, name = "about"),
     path("article/<int:pk>/edit/", edit_article, name = "article-edit"),
     path("article/add/", add_article, name="article-add"),

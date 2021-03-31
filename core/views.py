@@ -11,13 +11,6 @@ def articles(request):
         {"articles": articles}
     )
 
-def authors(request):
-    authors = Author.objects.all()
-    return render(
-        request,
-        "authors.html",
-        {"authors": authors}
-    )
 
 def article(request, id):
     article = Article.objects.get(id = id)
@@ -28,6 +21,22 @@ def article(request, id):
         request,
         "article.html",
         {"article": article}
+    )
+
+def authors(request):
+    authors = Author.objects.all()
+    return render(
+        request,
+        "authors.html",
+        {"authors": authors}
+    )
+
+def author_page(request, pk):
+    author = Author.objects.get(id=pk)
+    return render(
+        request,
+        "author.html",
+        {"author":author}
     )
 
 def about(request):
@@ -83,4 +92,7 @@ def delete_article(request, id):
     myarticle = Article.objects.get(pk=id)
     myarticle.delete()
     return HttpResponse("is deleted")
+
+
+
 

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <h2> {{ author.nickname }}</h2>
+
+    {%if author.photo %}
+    <div>
+        <img src="{{ author.photo.url }}" width="500">
+    </div>
+    {% endif %}
+
+     
+
+
+
+{% endblock %}
