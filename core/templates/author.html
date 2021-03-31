@@ -2,7 +2,10 @@
 
 {% block content %}
 
-    <h2> {{ author.nickname }}</h2>
+    <h2> First name: {{ user.first_name }}</h2>
+    <h2> Last name: {{ user.get_full_name }}</h2>
+
+    <h2>Pseudonym: {{ author.nickname }}</h2>
 
     {%if author.photo %}
     <div>
@@ -10,7 +13,7 @@
     </div>
     {% endif %}
 
-     
+    
 
 
 

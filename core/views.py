@@ -36,7 +36,7 @@ def author_page(request, pk):
     return render(
         request,
         "author.html",
-        {"author":author}
+        {"author":author, "user":author.user}
     )
 
 def about(request):
