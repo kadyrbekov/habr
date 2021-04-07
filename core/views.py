@@ -72,8 +72,7 @@ def add_article(request):
         if not Author.objects.filter(user=user).exists():
             author = Author(user=user, nickname=user.username)
             author.save()
-        
-        new_article.author = author
+            new_article.author = author
         
 
         new_article.save()
@@ -92,6 +91,10 @@ def delete_article(request, id):
     myarticle = Article.objects.get(pk=id)
     myarticle.delete()
     return HttpResponse("is deleted")
+
+def top(request):
+    articles = Article.objects.order_by("-views")[:3]
+    return render(request, "articles.html", {"articles":articles})
 
 
 

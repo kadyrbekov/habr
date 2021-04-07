@@ -30,5 +30,6 @@ urlpatterns = [
     path("article/add/", add_article, name="article-add"),
     path("search/", search, name="search"),
     path("article/<int:id>/delete/", delete_article, name = "article-delete"), #justwrite in reverse
+    path("top/", top, name="top" )
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) \
   + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

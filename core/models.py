@@ -36,6 +36,8 @@ class Article(models.Model):
 
 
 
+
+
     def __str__(self):
         return self.title
 
@@ -61,4 +63,11 @@ class Author(models.Model):
     def __str__(self):
         return self.nickname
    
-    
+
+class AritcleImage(models.Model):
+    img = models.ImageField(upload_to="articles_image")
+    article = models.ForeignKey(
+        to=Article,
+        on_delete=models.CASCADE,
+        related_name="aricles",
+    )
