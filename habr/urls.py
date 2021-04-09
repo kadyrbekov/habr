@@ -22,6 +22,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", articles, name = "articles"),
+    path('sign-in/', sign_in, name='sign-in'),
+    path('sign-out/', sign_out, name='sign-out'),
     path("article/<int:id>/", article, name = "article"),
     path("authors/", authors, name = "authors"),
     path("author/<int:pk>", author_page, name="author"),

@@ -1,6 +1,6 @@
 import factory
 from .models import Article
 
-class ArticleFactory(factory.django.Django):
+class ArticleFactory(factory.django.DjangoModelFactory):
     class Meta:
         model =Article

@@ -83,12 +83,21 @@
             </nav>
           </div>
 
+
        
 
         <form action="{% url 'search' %}">
           <input type="text" name="word">
           <button class="btn btn-outline-success">Search</button>
         </form>
+
+        {% if not request.user.is_authenticated %}
+            <a class='btn btn-info ml-2' href="{% url 'sign-in' %}">Войти</a>
+        {% else %}
+            <a class='btn btn-info ml-2' href="{% url 'sign-out' %}">Выйти</a>
+        {% endif %}
+
+
         
         {% block content %}
         {% endblock %}

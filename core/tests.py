@@ -1,6 +1,6 @@
 from django.test import TestCase
 from django.urls import reverse
-# from core.models import Article
+from core.models import Article
 from .factories import ArticleFactory
 
 
@@ -9,7 +9,7 @@ class HomepageTestCase(TestCase):
         url = reverse('articles')
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200)
-        self.assertContains(response, 'Хабр')
+        self.assertContains(response, 'Habr')
     
     def test_homepage_with_articles_success(self):
         n = 3
