@@ -5,9 +5,14 @@ from .factories import ArticleFactory
 
 
 class HomepageTestCase(TestCase):
+
+    def setUp(self):
+        self.url = reverse('articles')
+
+
     def test_homepage_loads_success(self):
-        url = reverse('articles')
-        response = self.client.get(url)
+       
+        response = self.client.get(self.url)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, 'Habr')
     
@@ -25,8 +30,8 @@ class HomepageTestCase(TestCase):
         article.is_active = False
         article.save()
 
-        url = reverse('articles')
-        response = self.client.get(url)
+        
+        response = self.client.get(self.url)
         self.assertIn('articles', response.context)
         articles = Article.objects.filter(is_active=True)
         self.assertEqual(articles.count(), n - 1)

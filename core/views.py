@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse, redirect
 from .models import Article, Author
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
+from .forms import RegisterForm, ArticleForm
 
 # Create your views here.
 
@@ -21,6 +22,25 @@ def sign_in(request):
 def sign_out(request):
     logout(request)
     return redirect(sign_in)
+
+ 
+# views.py
+
+
+
+# Create your views here.
+def register(response):
+    if response.method == "POST":
+	    form = RegisterForm(response.POST)
+	    if form.is_valid():
+	        form.save()
+
+	    return redirect("/")
+    else:
+	    form = RegisterForm()
+
+    return render(response, "register.html", {"form":form})
+
 
 
 
@@ -100,6 +120,23 @@ def add_article(request):
 
         new_article.save()
         return redirect(article, new_article.pk)
+
+
+def article_form(request):
+    context = {}
+
+    if request.method == 'POST':
+        form = ArticleForm(request.POST, request.FILES)
+        if form.is_valid():
+            article = form.save()
+        return redirect(article_page, article.id)
+    else:
+        form = ArticleForm()
+
+    form = ArticleForm()
+    context['form'] = form
+
+    return render(request, 'form.html', context)
 
 
 def search(request):

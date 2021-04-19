@@ -19,17 +19,20 @@ from core.views import *
 from django.conf import settings
 from django.conf.urls.static import static
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", articles, name = "articles"),
     path('sign-in/', sign_in, name='sign-in'),
     path('sign-out/', sign_out, name='sign-out'),
+    path("register/", register, name="register"),
     path("article/<int:id>/", article, name = "article"),
     path("authors/", authors, name = "authors"),
     path("author/<int:pk>", author_page, name="author"),
     path("about/", about, name = "about"),
     path("article/<int:pk>/edit/", edit_article, name = "article-edit"),
     path("article/add/", add_article, name="article-add"),
+    path("article/form/", article_form, name="article-form"),
     path("search/", search, name="search"),
     path("article/<int:id>/delete/", delete_article, name = "article-delete"), #justwrite in reverse
     path("top/", top, name="top" )
