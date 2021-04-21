@@ -1,11 +1,16 @@
 from django.shortcuts import render, HttpResponse, redirect
-from .models import Article, Author
 from django.db.models import Q
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout, get_user_model
+from django.contrib.auth.decorators import login_required, user_passes_test, permission_required
+
+
+
+from .models import Article, Author
 from .forms import RegisterForm, ArticleForm
+from .filters import ArticleFilter
 
 # Create your views here.
-
+User = get_user_model()
 
 def sign_in(request):
     if request.method == 'POST':
@@ -47,12 +52,21 @@ def register(response):
 
 
 def articles(request):
+    article_filter = ArticleFilter(request.GET, queryset=Article.objects.all())
     articles = Article.objects.all()
     return render(
         request,
         "articles.html",
         {"articles": articles}
     )
+
+# def articles(request):
+#     article_filter = ArticleFilter(request.GET, queryset=Article.objects.filter(is_active=True))
+#     return render(
+#         request,
+#         "articles.html",
+#         {"article_filter": article_filter}
+#     )
 
 
 def article(request, id):
@@ -98,6 +112,8 @@ def edit_article(request, pk):
         return redirect(article_page, pk)
     return render(request, "update.html", {"article": article})
 
+
+@login_required(login_url='/sign-in/')
 def add_article(request):
     if request.method == "GET":
         return render(request, "add_article.html")
@@ -146,7 +162,12 @@ def search(request):
     return render(request, "articles.html", {"articles":articles})
 
 
+def is_author(user):
+    if not user.is_authenticated:
+        return False
+    return Author.objects.filter(user=user).exists()
 
+@user_passes_test(is_author)
 def delete_article(request, id):
     myarticle = Article.objects.get(pk=id)
     myarticle.delete()
@@ -154,7 +175,7 @@ def delete_article(request, id):
 
 def top(request):
     articles = Article.objects.order_by("-views")[:3]
-    return render(request, "articles.html", {"articles":articles})
+    return render(request, "top.html", {"articles":articles})
 
 
 
